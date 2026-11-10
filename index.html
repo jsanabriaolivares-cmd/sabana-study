@@ -284,6 +284,7 @@ reservas:()=>{const cls={Confirmada:'soon',Activa:'free',Finalizada:'done',Cance
 home:()=>`<div class="body">
   <div><h3 class="t">Encuentra tu espacio para estudiar</h3><p class="sub">Biblioteca y Ad Portas · Universidad de La Sabana</p></div>
   ${S.booked?`<div class="card" style="background:var(--p-soft);border-color:transparent"><span class="pill free">${S.cur&&S.cur.status==='Activa'?'Reserva activa':'Reserva confirmada'}</span><b style="font-size:17px">${S.room.name} · ${S.room.place}</b><span class="sub">${S.cur?S.cur.slot:slot()}${S.cur&&S.cur.status==='Activa'?'':' · empieza en 25 min'}</span><button class="pbtn" data-a="go:${S.cur&&S.cur.status==='Activa'?'active':'checkin'}" style="margin-top:6px">${S.cur&&S.cur.status==='Activa'?'Ver reserva':'Hacer check-in'}</button></div>`:''}
+  <div class="card" style="gap:4px"><b style="font-size:15px">¿Cómo funciona?</b><span class="sub">1. Busca y reserva tu sala.</span><span class="sub">2. Al llegar, escanea el QR de la puerta (tienes 10 min).</span><span class="sub">3. Si no llegas, la sala se libera y te mostramos otras.</span></div>
   <button class="pbtn" data-a="go:filters" style="padding:18px">Buscar sala</button>
   <button class="pbtn soft" data-a="mine">Mis reservas</button>
   <button class="pbtn soft" data-a="go:avail" style="background:var(--p-green-s);color:var(--p-green)">Espacios cercanos</button>
@@ -291,7 +292,7 @@ home:()=>`<div class="body">
 filters:()=>`<div class="body">${head()}<h3 class="t">¿Qué necesitas?</h3>
   <div class="lbl">¿Cuántas personas?</div><div class="stepper"><button data-a="ppl:-1" aria-label="Menos personas">−</button><output>${S.people}</output><button data-a="ppl:1" aria-label="Más personas">+</button></div>
   <div class="lbl">Hora de inicio · hoy</div><div class="chips">${[10,11,12].map(h=>`<button class="chip" aria-pressed="${S.hour===h}" data-a="hour:${h}">${hm(h)}</button>`).join('')}</div>
-  <div class="lbl">¿Cuánto tiempo?</div><div class="chips">${[[30,'30 min'],[60,'1 hora'],[120,'2 horas']].map(([d,l])=>`<button class="chip" aria-pressed="${S.dur===d}" data-a="dur:${d}">${l}</button>`).join('')}</div>
+  <div class="lbl">¿Cuánto tiempo?</div><div class="chips">${[[30,'30 min'],[60,'1 hora'],[90,'1,5 horas'],[120,'2 horas']].map(([d,l])=>`<button class="chip" aria-pressed="${S.dur===d}" data-a="dur:${d}">${l}</button>`).join('')}</div>
   <div class="lbl">Preferencias</div><div class="chips">${Object.entries(FEATS).map(([k,l])=>`<button class="chip" aria-pressed="${S.feats.has(k)}" data-a="feat:${k}">${l}</button>`).join('')}</div>
   <button class="pbtn" data-a="go:avail" style="margin-top:auto">Ver salas disponibles</button></div>`,
 avail:()=>{const f=free();return `<div class="body" style="gap:10px">${head()}<div><h3 class="t">Salas disponibles ahora</h3><p class="sub"><span class="dot free" style="display:inline-block;margin-right:6px"></span>Actualizado hace 1 min · ${S.people}+ personas · ${slot()}</p></div>
